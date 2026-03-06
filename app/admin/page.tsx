@@ -1,3 +1,6 @@
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import {
   Table,
@@ -23,6 +26,14 @@ async function getWaitlistMembers() {
 }
 
 export default async function AdminPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/sign-in");
+  }
+
   const members = await getWaitlistMembers();
 
   return (
