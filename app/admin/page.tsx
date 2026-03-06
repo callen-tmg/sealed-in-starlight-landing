@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SignOutButton } from "@/components/sign-out-button";
 
 export const dynamic = "force-dynamic";
 
@@ -48,12 +49,15 @@ export default async function AdminPage() {
               Manage your Sealed in Starlight waitlist members.
             </p>
           </div>
-          <Badge
-            variant="secondary"
-            className="bg-[#1a1020] text-[#c9a84c] border border-[#c9a84c]/20"
-          >
-            {members.length} {members.length === 1 ? "member" : "members"}
-          </Badge>
+          <div className="flex items-center gap-4">
+            <Badge
+              variant="secondary"
+              className="bg-[#1a1020] text-[#c9a84c] border border-[#c9a84c]/20"
+            >
+              {members.length} {members.length === 1 ? "member" : "members"}
+            </Badge>
+            <SignOutButton />
+          </div>
         </div>
 
         <Card className="border-[#c9a84c]/10 bg-[#141422]">

@@ -31,36 +31,74 @@ export default function SignInPage() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "100px auto", padding: "2rem" }}>
-      <h1 style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: "1.5rem", textAlign: "center" }}>
-        Sign In
-      </h1>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={{ padding: "0.75rem", border: "1px solid #333", borderRadius: 4, background: "#111", color: "#eee" }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={{ padding: "0.75rem", border: "1px solid #333", borderRadius: 4, background: "#111", color: "#eee" }}
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          style={{ padding: "0.75rem", background: "#c9a84c", color: "#0a0a12", border: "none", borderRadius: 4, fontWeight: 600, cursor: "pointer" }}
-        >
-          {loading ? "Signing in..." : "Sign In"}
-        </button>
-        {error && <p style={{ color: "#e87777", fontSize: "0.9rem" }}>{error}</p>}
-      </form>
+    <div className="landing-page" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background:
+            "radial-gradient(ellipse at 50% 30%, rgba(107, 29, 58, 0.15) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(45, 90, 61, 0.08) 0%, transparent 50%)",
+          pointerEvents: "none",
+        }}
+      />
+      <div className="waitlist-card" style={{ opacity: 1, transform: "none", maxWidth: 420, width: "100%", margin: "0 24px" }}>
+        <div style={{ textAlign: "center", marginBottom: 8 }}>
+          <div style={{ fontSize: 32, color: "var(--gold)", marginBottom: 16 }}>&#10042;</div>
+          <h1
+            style={{
+              fontFamily: "var(--font-display), serif",
+              fontSize: 24,
+              fontWeight: 400,
+              letterSpacing: 2,
+              color: "var(--text-primary)",
+              marginBottom: 8,
+            }}
+          >
+            Welcome Back
+          </h1>
+          <p style={{ fontSize: 15, color: "var(--text-secondary)", fontStyle: "italic", marginBottom: 32 }}>
+            Enter the starlight.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="waitlist-form">
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" className="spinner" style={{ display: "inline-block" }}>
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" strokeDasharray="31.4" strokeDashoffset="10" />
+              </svg>
+            ) : (
+              <span>Sign In</span>
+            )}
+          </button>
+          {error && (
+            <p style={{ color: "#e87777", fontSize: "0.9rem", textAlign: "center", marginTop: 4 }}>
+              {error}
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
