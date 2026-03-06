@@ -1,29 +1,31 @@
 "use client";
 
 import { useState } from "react";
+import { joinWaitlist } from "@/app/actions/waitlist";
 
 export function WaitlistSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim()) return;
 
     setLoading(true);
+    setError("");
 
-    // Simulate submission delay (replace with real API call)
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // Store locally as fallback
-    const waitlist = JSON.parse(localStorage.getItem("sis_waitlist") || "[]");
-    waitlist.push({ name: name.trim(), email: email.trim(), date: new Date().toISOString() });
-    localStorage.setItem("sis_waitlist", JSON.stringify(waitlist));
+    const result = await joinWaitlist(name, email);
 
     setLoading(false);
-    setSuccess(true);
+
+    if (result.error) {
+      setError(result.error);
+    } else {
+      setSuccess(true);
+    }
   };
 
   return (
@@ -62,6 +64,7 @@ export function WaitlistSection() {
                   <span>Seal My Spot</span>
                 )}
               </button>
+              {error && <p className="form-error" style={{ color: "#e87777", marginTop: "0.5rem", fontSize: "0.9rem" }}>{error}</p>}
               <p className="form-note">No spam. Just starlight.</p>
             </form>
           ) : (
