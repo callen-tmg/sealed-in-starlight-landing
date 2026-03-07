@@ -147,6 +147,14 @@
     waitlist.push({ name, email, date: new Date().toISOString() });
     localStorage.setItem('sis_waitlist', JSON.stringify(waitlist));
 
+    // Fire Meta Pixel Lead event
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', {
+        content_name: 'Waitlist Signup',
+        content_category: 'Sealed in Starlight',
+      });
+    }
+
     // Show success
     form.style.display = 'none';
     successMessage.style.display = 'block';
