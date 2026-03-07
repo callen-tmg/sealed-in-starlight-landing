@@ -173,19 +173,31 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          intent: string | null
+          internal_note: string | null
           name: string
+          status: Database["public"]["Enums"]["waitlist_status"]
+          tags: string[]
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
+          intent?: string | null
+          internal_note?: string | null
           name: string
+          status?: Database["public"]["Enums"]["waitlist_status"]
+          tags?: string[]
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
+          intent?: string | null
+          internal_note?: string | null
           name?: string
+          status?: Database["public"]["Enums"]["waitlist_status"]
+          tags?: string[]
         }
         Relationships: []
       }
@@ -197,7 +209,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      waitlist_status: "new" | "reviewed" | "invited" | "joined" | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -324,6 +336,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      waitlist_status: ["new", "reviewed", "invited", "joined", "archived"],
+    },
   },
 } as const

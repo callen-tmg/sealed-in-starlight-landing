@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { joinWaitlist } from "@/app/actions/waitlist";
+import { Textarea } from "@/components/ui/textarea";
 
 export function WaitlistSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [intent, setIntent] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -17,7 +19,7 @@ export function WaitlistSection() {
     setLoading(true);
     setError("");
 
-    const result = await joinWaitlist(name, email);
+    const result = await joinWaitlist(name, email, intent);
 
     setLoading(false);
 
@@ -53,6 +55,14 @@ export function WaitlistSection() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <Textarea
+                  placeholder="What are you hoping this helps with? (optional)"
+                  value={intent}
+                  onChange={(e) => setIntent(e.target.value)}
+                  className="min-h-28 border-white/10 bg-white/5 text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
                 />
               </div>
               <button type="submit" className="submit-button" disabled={loading}>
